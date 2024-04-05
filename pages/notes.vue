@@ -125,7 +125,7 @@
 </script>
 <template>
     <div class="bg-[#f1f5f9] pt-10 min-h-screen flex justify-center">
-        <div class="md:w-[800px] w-[390px]">
+        <div class="md:w-[800px] w-[360px]">
             <div class="flex justify-between gap-5">
                 <div class="flex-grow relative">
                     <i class="pi pi-search absolute top-2/4 -mt-2 left-3 text-neutral-400" />
