@@ -134,7 +134,7 @@
                 <Button @click="showNewModal" class="text-white flex-shrink-0 bg-[#4f46e5] h-10 px-4 text-sm rounded-full" icon="pi pi-plus" label="New note"></Button>
             </div>
             <div class="flex md:flex-col items-start gap-4 max-h-screen flex-wrap py-4 pb-40 overflow-scroll text-xs">
-                <Card v-for="(note, index) in notes" :class="`md:w-60 w-full ${(!note.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) && !note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase()) )? 'hidden' : ''}`" @click="openEdit(note.id)">
+                <Card v-for="(note, index) in notes" :class="`md:w-60 w-full cursor-pointer ${(!note.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) && !note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase()) )? 'hidden' : ''}`" @click="openEdit(note.id)">
                     <template #content>
                         <h2 class=" font-bold mb-3">{{ note.title }}</h2>
                         <p class=" text-wrap overflow-hidden">{{ note.content }}</p>
