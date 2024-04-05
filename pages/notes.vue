@@ -155,7 +155,7 @@
                 <Card v-for="(note, index) in notes" :class="`md:w-60 w-full cursor-pointer ${(!note.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) && !note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase()) )? 'hidden' : ''}`" @click="openEdit(note.id)">
                     <template #content>
                         <h2 class=" font-bold mb-3">{{ note.title }}</h2>
-                        <p class=" text-wrap overflow-hidden">{{ note.content }}</p>
+                        <p class=" text-wrap overflow-hidden" v-html="note.content"></p>
                     </template>
                 </Card>
             </div>
