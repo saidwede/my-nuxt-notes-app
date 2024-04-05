@@ -146,9 +146,9 @@
     <div v-if="newModal">
         <div @click="hideNewModal" class="fixed top-0 left-0 bg-[#00000044] w-full h-full">
         </div>
-        <Card class="w-[600px] min-h-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Card class="md:w-[600px] w-[350px] min-h-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <template #content>
-                <InputText type="text" v-model="newTitle" placeholder="Title" class="shadow-none outline-none text-3xl"></InputText>
+                <InputText type="text" v-model="newTitle" placeholder="Title" class="w-full shadow-none outline-none text-3xl"></InputText>
                 <Textarea v-model="newNote" class="outline-none w-full mt-10" placeholder="Note" />
                 <div class="flex justify-end pt-5">
                     <Button @click="saveNewNote" :disabled="(newTitle.length == 0 && newNote.length == 0)" :class="`flex-shrink-0 h-10 px-4 text-sm rounded-full ${(newTitle.length > 0 || newNote.length > 0)? 'bg-[#4f46e5] text-white' : 'bg-neutral-200 text-neutral-500'}`" label="Save"></Button>
@@ -159,9 +159,9 @@
     <div v-if="editModal">
         <div @click="hideEditModal" class="fixed top-0 left-0 bg-[#00000044] w-full h-full">
         </div>
-        <Card class="w-[600px] min-h-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Card class="md:w-[600px] w-[350px] min-h-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <template #content>
-                <InputText v-model="editTitle" @input="handleNoteUpdate" type="text" placeholder="Title" class="shadow-none outline-none text-3xl"></InputText>
+                <InputText v-model="editTitle" @input="handleNoteUpdate" type="text" placeholder="Title" class="w-full shadow-none outline-none text-3xl"></InputText>
                 <Textarea v-model="editNote" @input="handleNoteUpdate" class="outline-none w-full mt-10" placeholder="Note" />
                 <div class="flex justify-between pt-5">
                     <div>

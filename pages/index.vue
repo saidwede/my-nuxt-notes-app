@@ -6,13 +6,6 @@
     const myInputStyle = ref({
     root: 'p-4 text-gray-900 text-sm outline-none rounded-lg placeholder:text-gray-500 border border-neutral-300'
 });
-    const cities = ref([
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ]);
     const email = ref('')
     const password = ref('')
 
