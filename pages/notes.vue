@@ -2,6 +2,7 @@
     import { ref } from 'vue';
 
     const api_token = ref(null)
+    const editRef = ref(null)
     const notes = ref([])
     const displayedNote = ref([])
     const newTitle = ref("")
@@ -44,6 +45,10 @@
         editIndex.value = index
         editTitle.value = note.title
         editNote.value = note.content
+        setTimeout(() => {
+            editRef.value.style.height = "0px"
+            editRef.value.style.height = editRef.value.scrollHeight + "px"
+        }, 50);
     }
     function hideNewModal(){
         newModal.value = false
@@ -97,7 +102,16 @@
             refreshNotes()
         })
     }
-    function handleNoteUpdate(){
+    function handleNoteUpdate(e){
+        resizeTextArea(e)
+        clearTimeout(debounceTimer.value)
+        debounceTimer.value = setTimeout(() => {
+            if(editTitle.value.length > 0){
+                updateNote()
+            }
+        }, 500)
+    }
+    function handleNoteTitleUpdate(){
         clearTimeout(debounceTimer.value)
         debounceTimer.value = setTimeout(() => {
             if(editTitle.value.length > 0){
@@ -112,6 +126,10 @@
                 element.visible = false
             }
         });
+    }
+    function resizeTextArea(e){
+        e.target.style.height = "0px"
+        e.target.style.height = e.target.scrollHeight + "px"
     }
     if(typeof localStorage != "undefined"){
         api_token.value = localStorage.getItem("api_token") || null
@@ -149,20 +167,20 @@
         <Card class="md:w-[600px] w-[350px] min-h-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <template #content>
                 <InputText type="text" v-model="newTitle" placeholder="Title" class="w-full shadow-none outline-none text-3xl"></InputText>
-                <Textarea v-model="newNote" class="outline-none w-full mt-10" placeholder="Note" />
+                <Textarea v-model="newNote" @input="resizeTextArea" class="outline-none w-full mt-10 appearance-none resize-none shadow-none" placeholder="Note" />
                 <div class="flex justify-end pt-5">
                     <Button @click="saveNewNote" :disabled="(newTitle.length == 0 && newNote.length == 0)" :class="`flex-shrink-0 h-10 px-4 text-sm rounded-full ${(newTitle.length > 0 || newNote.length > 0)? 'bg-[#4f46e5] text-white' : 'bg-neutral-200 text-neutral-500'}`" label="Save"></Button>
                 </div>
             </template>
         </Card>
     </div>
-    <div v-if="editModal">
+    <div :class="`${editModal? 'block' : 'hidden'}`">
         <div @click="hideEditModal" class="fixed top-0 left-0 bg-[#00000044] w-full h-full">
         </div>
         <Card class="md:w-[600px] w-[350px] min-h-60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <template #content>
-                <InputText v-model="editTitle" @input="handleNoteUpdate" type="text" placeholder="Title" class="w-full shadow-none outline-none text-3xl"></InputText>
-                <Textarea v-model="editNote" @input="handleNoteUpdate" class="outline-none w-full mt-10" placeholder="Note" />
+                <InputText v-model="editTitle" @input="handleNoteTitleUpdate" type="text" placeholder="Title" class="w-full shadow-none outline-none text-3xl"></InputText>
+                <textarea ref="editRef" v-model="editNote" @input="handleNoteUpdate" class="max-h-[calc(100vh-300px)] overflow-scroll outline-none w-full mt-10 appearance-none resize-none shadow-none" placeholder="Note" ></textarea>
                 <div class="flex justify-between pt-5">
                     <div>
                         <Button @click="deleteNote" class="bg-neutral-200 rounded-full h-10" icon="pi pi-trash"></Button>
